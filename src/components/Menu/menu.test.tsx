@@ -43,6 +43,7 @@ let menuElement: HTMLElement,
   activeElement: HTMLElement,
   disabledElement: HTMLElement;
 describe("Test Menu Base", () => {
+  // 通用函数 创建每个测试it里都可能需要的变量
   beforeEach(() => {
     wrapper = render(generateMenu(testProps));
     wrapper.container.append(createStyleFile())
@@ -66,6 +67,7 @@ describe("Test Menu Base", () => {
     let noActive = wrapper.getByText("no active");
     expect(noActive).toBeInTheDocument();
     expect(noActive).not.toHaveClass('menu-item is-active')
+    // 触发点击事件
     fireEvent.click(noActive)
     expect(noActive).toHaveClass('menu-item is-active')
     expect(activeElement).not.toHaveClass('menu-item is-active')

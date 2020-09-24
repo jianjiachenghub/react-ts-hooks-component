@@ -1,6 +1,7 @@
 import React, { Context, FunctionComponentElement, useState } from "react";
 import { MenuItemProps } from "./menuItem";
 import classNames from "classnames";
+import { JsxEmit } from "typescript";
 
 type mode = "horizontal" | "vertical"; // 支持垂直和水平
 type onSelectType = (selectIndex: string) => void;
@@ -45,6 +46,7 @@ const Menu: React.FC<MenuProps> = (props) => {
     "menu-vertical": mode === "vertical",
     "menu-horizontal": mode !== "vertical",
   });
+
 
   return (
     <ul className={classes} style={style} data-testid="Menu-test-id">
