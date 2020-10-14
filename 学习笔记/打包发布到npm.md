@@ -68,3 +68,29 @@ TSX-> ES6 modules jsx
     "dist"
   ],
 ```
+
+## npm 信息
+
+首先确保metrics-registry没有使用其他代理
+```bash
+PS D:\gitReactProject\react-ts-hooks> npm config ls
+; cli configs
+metrics-registry = "https://registry.npmjs.org/"
+scope = ""
+user-agent = "npm/6.12.0 node/v12.13.0 win32 x64"
+
+; builtin config undefined
+prefix = "C:\\Users\\简佳成\\AppData\\Roaming\\npm"
+
+; node bin location = C:\Program Files\nodejs\node.exe
+; cwd = D:\gitReactProject\react-ts-hooks
+; HOME = C:\Users\简佳成
+; "npm config ls -l" to show all defaults.
+
+PS D:\gitReactProject\react-ts-hooks>
+```
+
+然后可以登录npm账号
+
+npm whoami 可以查询是否登录
+npm adduser 开始登录
