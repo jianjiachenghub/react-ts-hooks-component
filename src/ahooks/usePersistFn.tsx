@@ -14,6 +14,7 @@ function usePersistFn<T extends noop>(fn: T) {
   //* ref.current每次都会被fn重新赋值 fn就是最新传入的函数 这样避免面了外部闭包访问以前的值
   ref.current = fn;
   // ref 每次渲染都不会改变-》那么useCallback就不会出现计算 -》persistFn地址也就不变
+  // ref.current总是指向最新的fn2，而不是闭包保存的f1
   const persistFn = useCallback(((...args) => ref.current(...args)) as T, [ref]);
 
   return persistFn;
