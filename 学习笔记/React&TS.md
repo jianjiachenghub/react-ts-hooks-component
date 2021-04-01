@@ -453,3 +453,10 @@ export function inject<TProps, TInjectedKeys extends keyof TProps>(
 }
 
 ```
+## 组件与原生属性混合
+
+想封装一些button组件和input组件，会注入一些属性，然后原生的属性也要支持
+```TS
+type NativeButtonProps = ButtonHTMLAttributes<HTMLElement> & BaseButtonProps
+type NativeAriaProps = AnchorHTMLAttributes<HTMLElement> & BaseButtonProps
+```
