@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Hooks from './Hooks';
+// import Hooks from './Hooks';
+import VirtualList from './virtualList'
 import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(
   
-    <Hooks/>
+    <VirtualList/>
     ,
   document.getElementById('root')
 );

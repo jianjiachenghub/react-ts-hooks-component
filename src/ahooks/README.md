@@ -9,6 +9,49 @@
 
 凡是接收函数作为参数的 Hook，都需要使用 useref 存储赋值，需要一并处理下。
 
+```TSX
+
+// 持久化 function 的 Hook usePersistFn，可以保证persistFn函数地址永远不会变化
+// 在某些场景中，你可能会需要用 useCallback 记住一个回调，
+// 但由于内部函数必须经常重新创建，记忆效果不是很好，导致子组件重复 render。
+// 对于超级复杂的子组件，重新渲染会对性能造成影响
+function usePersistFn<T extends noop>(fn: T) {
+  const ref = useRef<any>(() => {
+    throw new Error('Cannot call function while rendering.');
+  });
+  //* 每次更新外部都会重复执行usePersistFn 也就是说会 usePersistFn1(f1) usePersistFn(f2) f1和f2是相同函数被缓存在不同的上下文
+  //* ref.current每次都会被fn重新赋值 fn就是最新传入的函数 这样避免面了外部闭包访问以前的值
+  ref.current = fn;
+  // ref 每次渲染都不会改变-》那么useCallback就不会出现计算 -》persistFn地址也就不变
+  // ref.current总是指向最新的fn2，而不是闭包保存的f1
+  const persistFn = useCallback(((...args) => ref.current(...args)) as T, [ref]);
+
+  return persistFn;
+}
+
+export default usePersistFn;
+```
+
+## useState 可以传入函数避免重复创建
+
+```
+function Table(props) {
+  // ⚠️ createRows() 每次渲染都会被调用
+  const [rows, setRows] = useState(createRows(props.count));
+  // ...
+}
+```
+
+为避免重新创建被忽略的初始 state，我们可以传一个 函数 给 useState：
+
+```
+function Table(props) {
+  // ✅ createRows() 只会被调用一次
+  const [rows, setRows] = useState(() => createRows(props.count));
+  // ...
+}
+```
+
 ## useLayoutEffect
 
 
